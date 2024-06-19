@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -11,7 +12,7 @@ import LottieView from 'lottie-react-native';
 
 export default function AddUser({navigation}) {
   const [renderAnimation, setRenderAnimation] = useState<Boolean>(false);
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string | undefined>();
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -22,9 +23,17 @@ export default function AddUser({navigation}) {
     setRenderAnimation(false), navigation.goBack();
   };
 
+  const verify = () => {
+    if (name) {
+      setRenderAnimation(true);
+      setTimeout(() => goBack(), 1900);
+      return;
+    }
+    Alert.alert('Erro', 'Por favor, digite um nome de usuario');
+  };
+
   const handleRenderAnimation = () => {
-    setRenderAnimation(true);
-    setTimeout(() => goBack(), 1900);
+    verify();
   };
 
   const renderIconSucess = () => {
