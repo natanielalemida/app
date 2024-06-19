@@ -1,107 +1,39 @@
-import React, {useState} from 'react';
-import LottieView from 'lottie-react-native';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import Login from './src/pages/login/login';
+import Home from './src/pages/home/home';
+import usersIndex from './src/modules/users/usersIndex';
+import AddUser from './src/modules/users/addUser/addUser';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [email, setEmail] = useState<string>('');
-  const [senha, setSenha] = useState<string>('');
   return (
-    <View style={styles.container}>
-      <View>
-        <LottieView
-          source={require('./src/assets/loginAnimation.json')}
-          autoPlay={true}
-          style={styles.iconContainer}
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{headerShown: false}}
         />
-      </View>
-      <View style={styles.welcomeContainer}>
-        <Text style={styles.welcomeTitle}>Bem vindo ao PDV</Text>
-      </View>
-      <View style={styles.loginContainer}>
-        <Text style={styles.labelLogin}>Username ou email</Text>
-        <TextInput
-          placeholder="Digite seu email"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.input}
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
         />
-      </View>
-      <View style={styles.loginContainer}>
-        <Text style={styles.labelLogin}>Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite sua senha"
-          value={senha}
-          onChangeText={setSenha}
-          secureTextEntry={true}
+        <Stack.Screen
+          name="UserIndex"
+          component={usersIndex}
+          options={{headerShown: false}}
         />
-      </View>
-      <View style={styles.loginContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        <Stack.Screen
+          name="AddUser"
+          component={AddUser}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  welcomeContainer: {
-    paddingBottom: 50,
-  },
-  iconContainer: {
-    height: 300,
-    width: 300,
-  },
-  welcomeTitle: {
-    fontSize: 19,
-    fontWeight: 'bold',
-  },
-  labelLogin: {
-    fontSize: 14,
-    fontWeight: '900',
-  },
-  loginContainer: {
-    width: '100%',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingLeft: 20,
-    paddingBottom: 15,
-  },
-  input: {
-    width: '95%',
-    height: 50,
-    borderColor: '#000',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    backgroundColor: '#fff',
-    marginTop: 5,
-  },
-  button: {
-    backgroundColor: 'black',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    width: '95%',
-    alignItems: 'center',
-    height: 60,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    textAlign: 'center',
-    paddingTop: 3,
-  },
-});
