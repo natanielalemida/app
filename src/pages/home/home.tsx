@@ -1,11 +1,14 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {getAuth} from '../../storage/authStorage';
 
 export default function Home({navigation}) {
   const handleOpenUser = () => {
     navigation.navigate('UserIndex');
+  };
+
+  const handleOpenProducts = () => {
+    navigation.navigate('ProductsIndex');
   };
 
   return (
@@ -42,7 +45,9 @@ export default function Home({navigation}) {
           <Icon name="shopping-cart" size={50} color={'#000'} />
           <Text style={style.moduleText}>Caixa</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={style.moduleContainer}>
+        <TouchableOpacity
+          style={style.moduleContainer}
+          onPress={handleOpenProducts}>
           <Icon name="archive" size={50} color={'#000'} />
           <Text style={style.moduleText}>Produtos</Text>
         </TouchableOpacity>
