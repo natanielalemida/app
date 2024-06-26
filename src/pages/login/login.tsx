@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import LottieView from 'lottie-react-native';
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -9,12 +10,28 @@ import {
 } from 'react-native';
 
 import {HomeScreenNavigationProp} from './types/types';
+import {openUrl} from '../../api/apiInstance';
+import {setAuth} from '../../storage/authStorage';
 
 export default function Login({navigation}: HomeScreenNavigationProp) {
   const [email, setEmail] = useState<string>('');
-  const [senha, setSenha] = useState<string>('');
+  const [password, setSenha] = useState<string>('');
 
-  const handleVerifyLogin = () => {
+  const handleVerifyLogin = async () => {
+    const {status, data} = await openUrl({
+      endpoint: 'auth',
+      method: 'post',
+      data: {email, password},
+    });
+
+    if (!status) {
+      Alert.alert('Eitaa', 'Email ou senha errado, por favor');
+      return;
+    }
+
+    const result = JSON.stringify(data.body);
+    
+    await setAuth(result);
     navigation.navigate('Home');
   };
 
@@ -44,7 +61,7 @@ export default function Login({navigation}: HomeScreenNavigationProp) {
         <TextInput
           style={styles.input}
           placeholder="Digite sua senha"
-          value={senha}
+          value={password}
           onChangeText={setSenha}
           secureTextEntry={true}
         />

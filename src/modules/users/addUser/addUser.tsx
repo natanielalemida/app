@@ -9,22 +9,47 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import LottieView from 'lottie-react-native';
+import {openUrl} from '../../../api/apiInstance';
+import {getAuth} from '../../../storage/authStorage';
+import {useRoute} from '@react-navigation/native';
 
 export default function AddUser({navigation}) {
+  const route = useRoute();
+  const params = route.params || {};
+
+  const {userId, userName, userCpf} = params;
+
   const [renderAnimation, setRenderAnimation] = useState<Boolean>(false);
-  const [name, setName] = useState<string | undefined>();
+  const [name, setName] = useState<string | undefined>(userName);
+  const [cpf, setCpf] = useState<string | undefined>(userCpf);
 
   const handleGoBack = () => {
-    navigation.goBack();
+    navigation.pop(1);
   };
 
   const goBack = () => {
+    const userPop = userId ? 2 : 1;
     setName('');
-    setRenderAnimation(false), navigation.goBack();
+    setRenderAnimation(false), navigation.pop(userPop);
   };
 
-  const verify = () => {
-    if (name) {
+  const verify = async () => {
+    if (name || cpf) {
+      const user = await getAuth();
+      const result = JSON.parse(user as string);
+      const {status} = await openUrl({
+        endpoint: userId ? 'customers' : 'customers',
+        method: userId ? 'put' : 'post',
+        data: {
+          customersId: userId,
+          organizationId: result.organizationId,
+          custurmesName: name,
+          cpf,
+        },
+      });
+
+      if (!status) return;
+
       setRenderAnimation(true);
       setTimeout(() => goBack(), 1900);
       return;
@@ -57,7 +82,9 @@ export default function AddUser({navigation}) {
             color={'#fff'}
           />
         </View>
-        <Text style={styles.initialText}>Adicionar Usuario</Text>
+        <Text style={styles.initialText}>
+          {userId ? 'Editar Usuario' : 'Cadastrar Usuario'}
+        </Text>
       </View>
       <View style={styles.formContainer}>
         <View style={styles.secondFormContainer}>
@@ -69,6 +96,13 @@ export default function AddUser({navigation}) {
               onChangeText={setName}
               style={styles.label}
             />
+            <Text style={styles.addUserText}>CPF</Text>
+            <TextInput
+              placeholder="Digite o CPF"
+              value={cpf}
+              onChangeText={setCpf}
+              style={styles.label}
+            />
           </View>
         </View>
         {renderAnimation && renderIconSucess()}
@@ -76,7 +110,7 @@ export default function AddUser({navigation}) {
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={handleRenderAnimation}>
-            <Text style={styles.textButton}>Adicionar</Text>
+            <Text style={styles.textButton}>Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>

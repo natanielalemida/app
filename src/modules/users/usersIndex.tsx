@@ -11,6 +11,11 @@ export default function Home({navigation}) {
     navigation.navigate('AddUser')
   }
 
+  const handleUserList = () => {
+    navigation.navigate('UserList')
+  }
+
+
   return (
     <View style={styles.container}>
       <View style={styles.initialContainer}>
@@ -29,7 +34,7 @@ export default function Home({navigation}) {
         <Text style={styles.textLabel}>Cadastrar Usuarios</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.label}>
+      <TouchableOpacity style={styles.label} onPress={handleUserList}>
         <Text style={styles.textLabel}>Consultar Usuarios</Text>
       </TouchableOpacity>
     </View>
