@@ -11,6 +11,10 @@ export default function Home({navigation}) {
     navigation.navigate('ProductsIndex');
   };
 
+  const handleOpenSales = () => {
+    navigation.navigate('SalesList');
+  };
+
   return (
     <View style={style.container}>
       <View style={style.initialContainer}>
@@ -41,7 +45,9 @@ export default function Home({navigation}) {
         <Text style={style.salesMadeText}> 6 vendas realizadas</Text>
       </View>
       <View style={style.modulesInitialContainer}>
-        <TouchableOpacity style={style.moduleContainer}>
+        <TouchableOpacity
+          style={style.moduleContainer}
+          onPress={handleOpenSales}>
           <Icon name="shopping-cart" size={50} color={'#000'} />
           <Text style={style.moduleText}>Caixa</Text>
         </TouchableOpacity>

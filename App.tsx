@@ -10,6 +10,9 @@ import UserList from './src/modules/users/userList/userList';
 import ProductsIndex from './src/modules/product/productsIndex';
 import ProductList from './src/modules/product/productList/productList';
 import ProductModal from './src/modules/product/productModal/productModal';
+import SalesList from './src/modules/sales/salesList';
+import CreateSale from './src/modules/sales/createSale/createSale';
+import CreateSaleUser from './src/modules/sales/createSale/createSaleUser';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +58,21 @@ export default function App() {
         <Stack.Screen
           name="ProductModal"
           component={ProductModal}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SalesList"
+          component={SalesList}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CreateSale"
+          component={CreateSale}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddUserSale"
+          component={CreateSaleUser}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
