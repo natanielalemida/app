@@ -13,6 +13,8 @@ import ProductModal from './src/modules/product/productModal/productModal';
 import SalesList from './src/modules/sales/salesList';
 import CreateSale from './src/modules/sales/createSale/createSale';
 import CreateSaleUser from './src/modules/sales/createSale/createSaleUser';
+import TicketSale from './src/modules/sales/createSale/ticketSale';
+import CheckSales from './src/modules/sales/checkSales/checkSales';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +75,16 @@ export default function App() {
         <Stack.Screen
           name="AddUserSale"
           component={CreateSaleUser}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TicketSale"
+          component={TicketSale}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CheckSales"
+          component={CheckSales}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

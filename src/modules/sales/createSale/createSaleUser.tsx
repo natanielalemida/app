@@ -3,14 +3,12 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  Alert,
   TouchableOpacity,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {openUrl} from '../../../api/apiInstance';
 import {getAuth} from '../../../storage/authStorage';
-import LottieView from 'lottie-react-native';
 import {useRoute} from '@react-navigation/native';
 
 export default function CreateSaleUser({navigation}) {
@@ -55,43 +53,42 @@ export default function CreateSaleUser({navigation}) {
     return valor;
   });
 
-  const handleMountBody = async (userId?: number) => {
-    try {
-      const result = await getAuth();
-      const user = JSON.parse(result as string);
-      const {status} = await openUrl({
-        method: 'post',
-        endpoint: `sale`,
-        data: {
-          organizationId: user.organizationId,
-          saleTypeId: 1,
-          soldBy: user.idEmployee,
-          userId,
-          amount: totalValue,
-          createdAt: new Date(),
-          products: selectedsProducst,
-        },
-      });
-
-      if (!status) throw new Error('cannot get organization');
-
-    } catch {
-      console.log('erro');
-    }
+  const handleCupomTickt = async (userId?: number, userName?: string) => {
+    const result = await getAuth();
+    const user = JSON.parse(result as string);
+    navigation.navigate('TicketSale', {
+      organizationId: user.organizationId,
+      saleTypeId: 1,
+      soldBy: {userId: user.idEmployee, name: user.employeeName},
+      user: {userId, userName},
+      amount: totalValue,
+      createdAt: new Date(),
+      products: selectedsProducst,
+    });
   };
 
   return (
     <View style={{flex: 1, backgroundColor: '#D3D3D3'}}>
       <View style={styles.initialContainer}>
-        <View style={styles.iconContainer}>
+        <View>
           <Icon onPress={goBack} name="arrow-left" size={25} color={'#fff'} />
         </View>
         <Text style={styles.initialText}>Selecione Cliente</Text>
+        <View>
+          <Icon
+            onPress={() => handleCupomTickt()}
+            name="check-circle"
+            size={25}
+            color={'#fff'}
+          />
+        </View>
       </View>
       <ScrollView>
         {user.map(currentUser => {
           return (
-            <TouchableOpacity style={styles.label} onPress={() => handleMountBody(currentUser.id_customers)}>
+            <TouchableOpacity
+              style={styles.label}
+              onPress={() => handleCupomTickt(currentUser.id_customers, currentUser.customers_name)}>
               <Text style={styles.textLabel}>{currentUser.customers_name}</Text>
             </TouchableOpacity>
           );
@@ -127,12 +124,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#084D6E',
     flexDirection: 'row',
     paddingHorizontal: 15,
   },
   initialText: {
-    textAlign: 'center',
     color: '#FFF',
     fontSize: 22,
   },

@@ -12,13 +12,10 @@ import LottieView from 'lottie-react-native';
 import {openUrl} from '../../../api/apiInstance';
 import {getAuth} from '../../../storage/authStorage';
 import {useRoute} from '@react-navigation/native';
-import ProductsIndex from '../productsIndex';
 
 export default function ProductModal({navigation}) {
   const route = useRoute();
   const params = route.params || {};
-
-  console.log(params)
 
   const {productId, productName, productCode, productQuantity, productPrice} = params;
 
@@ -54,6 +51,8 @@ export default function ProductModal({navigation}) {
           productId,
         },
       });
+
+      console.log(status)
 
       if (!status) return;
 

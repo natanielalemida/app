@@ -11,6 +11,10 @@ export default function SalesList({navigation}) {
     navigation.navigate('CreateSale');
   };
 
+  const handleCheckSales = () => {
+    navigation.navigate('CheckSales')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.initialContainer}>
@@ -29,7 +33,7 @@ export default function SalesList({navigation}) {
         <Text style={styles.textLabel}>Cadastrar venda</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.label}>
+      <TouchableOpacity style={styles.label} onPress={handleCheckSales}>
         <Text style={styles.textLabel}>Consultar vendas</Text>
       </TouchableOpacity>
     </View>
