@@ -101,6 +101,7 @@ export default function AddUser({navigation}) {
               placeholder="Digite o CPF"
               value={cpf}
               onChangeText={setCpf}
+              keyboardType="numeric"
               style={styles.label}
             />
           </View>

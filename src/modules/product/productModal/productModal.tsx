@@ -12,16 +12,21 @@ import LottieView from 'lottie-react-native';
 import {openUrl} from '../../../api/apiInstance';
 import {getAuth} from '../../../storage/authStorage';
 import {useRoute} from '@react-navigation/native';
+import ProductsIndex from '../productsIndex';
 
 export default function ProductModal({navigation}) {
   const route = useRoute();
   const params = route.params || {};
 
-  const {productId, productName, productName} = params;
+  console.log(params)
+
+  const {productId, productName, productCode, productQuantity, productPrice} = params;
 
   const [renderAnimation, setRenderAnimation] = useState<Boolean>(false);
   const [name, setName] = useState<string | undefined>(productName);
-  const [code, setCode] = useState<string | undefined>(productName);
+  const [code, setCode] = useState<string | undefined>(productCode);
+  const [quantity, setQuantity] = useState<string | undefined>(productQuantity);
+  const [price, setPrice] = useState<string | undefined>(productPrice);
 
   const handleGoBack = () => {
     navigation.pop(1);
@@ -34,17 +39,19 @@ export default function ProductModal({navigation}) {
   };
 
   const verify = async () => {
-    if (name || cpf) {
+    if (name || code) {
       const user = await getAuth();
       const result = JSON.parse(user as string);
       const {status} = await openUrl({
-        endpoint: productId ? 'customers' : 'customers',
+        endpoint: 'product',
         method: productId ? 'put' : 'post',
         data: {
-          customersId: productId,
+          productName: name,
           organizationId: result.organizationId,
-          custurmesName: name,
-          cpf,
+          productCode: code,
+          productQuantity: Number(quantity),
+          productPrice: Number(price),
+          productId,
         },
       });
 
@@ -102,6 +109,23 @@ export default function ProductModal({navigation}) {
               value={code}
               onChangeText={setCode}
               style={styles.label}
+              keyboardType="numeric"
+            />
+            <Text style={styles.addUserText}>Quantidade</Text>
+            <TextInput
+              placeholder="Digite a quantidade"
+              value={quantity ? String(quantity) : undefined}
+              onChangeText={setQuantity}
+              style={styles.label}
+              keyboardType="numeric"
+            />
+            <Text style={styles.addUserText}>Preço</Text>
+            <TextInput
+              placeholder="Digite o preço"
+              value={price ? String(price) : undefined}
+              onChangeText={setPrice}
+              style={styles.label}
+              keyboardType="numeric"
             />
           </View>
         </View>

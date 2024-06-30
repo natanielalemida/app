@@ -9,6 +9,7 @@ import AddUser from './src/modules/users/addUser/addUser';
 import UserList from './src/modules/users/userList/userList';
 import ProductsIndex from './src/modules/product/productsIndex';
 import ProductList from './src/modules/product/productList/productList';
+import ProductModal from './src/modules/product/productModal/productModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,11 @@ export default function App() {
         <Stack.Screen
           name="ProductList"
           component={ProductList}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ProductModal"
+          component={ProductModal}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

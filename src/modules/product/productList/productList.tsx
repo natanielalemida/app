@@ -88,13 +88,17 @@ export default function ProductList({navigation}) {
 
   const handleOpenUserModal = (
     productId: number,
-    userName: string,
-    userCpf: string,
+    productName: string,
+    productCode: string,
+    productPrice: number,
+    productQuantity: number,
   ) => {
-    navigation.navigate('AddUser', {
+    navigation.navigate('ProductModal', {
       productId,
-      userName,
-      userCpf,
+      productName,
+      productCode,
+      productPrice,
+      productQuantity,
     });
   };
 
@@ -110,7 +114,7 @@ export default function ProductList({navigation}) {
       <ScrollView>
         {user.map(currentUser => {
           return (
-            <TouchableOpacity style={styles.label}>
+            <TouchableOpacity style={styles.label} key={currentUser.productId}>
               <Text style={styles.textLabel}>{currentUser.productName}</Text>
               <View style={styles.iconsContainer}>
                 <TouchableOpacity
@@ -118,7 +122,9 @@ export default function ProductList({navigation}) {
                     handleOpenUserModal(
                       currentUser.productId,
                       currentUser.productName,
-                      currentUser.code,
+                      currentUser.productCode,
+                      currentUser.productPrice,
+                      currentUser.productQuantity
                     )
                   }>
                   <Icon name="edit" size={30} color={'blue'} />

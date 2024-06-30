@@ -8,7 +8,7 @@ export default function ProductsIndex({navigation}) {
   };
 
   const handleAddUsser = () => {
-    navigation.navigate('AddUser');
+    navigation.navigate('ProductModal');
   };
 
   const handleProductList = () => {
