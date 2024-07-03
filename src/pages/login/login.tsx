@@ -30,7 +30,7 @@ export default function Login({navigation}: HomeScreenNavigationProp) {
     }
 
     const result = JSON.stringify(data.body);
-    
+
     await setAuth(result);
     navigation.navigate('Home');
   };

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crie uma instância do Axios com a URL base
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.1.136:3000/',
+  baseURL: 'http://18.228.152.241:3000/',
 });
 
 // Função para abrir a URL específica e enviar o body, se necessário

@@ -48,19 +48,19 @@ export default function Home({navigation}) {
         <TouchableOpacity
           style={style.moduleContainer}
           onPress={handleOpenSales}>
-          <Icon name="shopping-cart" size={50} color={'#000'} />
+          <Icon name="shopping-cart" size={40} color={'#000'} />
           <Text style={style.moduleText}>Caixa</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={style.moduleContainer}
           onPress={handleOpenProducts}>
-          <Icon name="archive" size={50} color={'#000'} />
+          <Icon name="archive" size={40} color={'#000'} />
           <Text style={style.moduleText}>Produtos</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={style.moduleContainer}
           onPress={handleOpenUser}>
-          <Icon name="users" size={50} color={'#000'} />
+          <Icon name="users" size={40} color={'#000'} />
           <Text style={style.moduleText}>Clientes</Text>
         </TouchableOpacity>
       </View>
@@ -141,8 +141,8 @@ const style = StyleSheet.create({
     padding: 21,
   },
   moduleContainer: {
-    width: 180,
-    height: 180,
+    width: 140,
+    height: 140,
     backgroundColor: '#FFF',
     borderRadius: 15,
     alignItems: 'center',
